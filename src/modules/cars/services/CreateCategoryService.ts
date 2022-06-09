@@ -1,6 +1,4 @@
-/* eslint-disable prettier/prettier */
-import { CategoriesRepository } from '../repositories/categoriesRepository';
-
+import { ICategoriesRepository } from "../repositories/ICategoriesRepository";
 
 interface IRequest {
     name: string;
@@ -8,14 +6,15 @@ interface IRequest {
 }
 
 class CreateCategoryService {
-    constructor(private categoriesRepository: CategoriesRepository) {}
+    constructor(private categoriesRepository: ICategoriesRepository) {}
+    execute({ description, name }: IRequest): void {
+        const categoryAlreadyExists =
+            this.categoriesRepository.findByName(name);
 
-    execute({ name, description }: IRequest): void {
-        const categoryAlreadExists = this.categoriesRepository.findByName(name);
-        // verificar se a categoria já existe
-        if (categoryAlreadExists) {
-            throw new Error("CategoryAlready exists");
+        if (categoryAlreadyExists) {
+            throw new Error("Category already exists!");
         }
+
         this.categoriesRepository.create({ name, description });
     }
 }
