@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { CategoriesRepository } from '../../repositories/categoriesRepository';
+import { CategoriesRepository } from '../../repositories/implementations/categoriesRepository';
 
 
 interface IRequest {

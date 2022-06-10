@@ -1,20 +1,12 @@
 import { Router } from "express";
 
-import { SpecificationsRepository } from "../modules/cars/repositories/SpecificationsRepository";
-import { CreateSpecificationService } from "../modules/cars/services/CreateSpecificationService";
+import { createSpeficicationController } from "../modules/cars/useCases/createSpecification";
 
 const specificationsRoutes = Router();
 
-const specificationsRepository = new SpecificationsRepository();
-
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 specificationsRoutes.post("/", (request, response) => {
-    const { name, description } = request.body;
-
-    const createSpecificationService = new CreateSpecificationService(
-        specificationsRepository
-    );
-    createSpecificationService.execute({ name, description });
-    return response.status(201).send();
+    return createSpeficicationController.handle(request, response);
 });
 
-export { specificationsRepository, specificationsRoutes };
+export { specificationsRoutes };
